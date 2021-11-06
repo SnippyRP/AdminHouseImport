@@ -188,59 +188,10 @@ local function loadModel(id)
 				fireRemote(game:GetService("Players").LocalPlayer.Backpack.Folder.SyncAPI.ServerEndpoint,args)
 
 
+				part.Name = "FinishedPart"
 
+				
 
-
-
-				--//MESH FUNCTION
-
-				local foundmesh = false
-				for _, ee in ipairs(e:GetChildren()) do
-					if ee:IsA("SpecialMesh") then
-
-						foundmesh = true
-					end
-				end
-
-
-				local obj = nil
-				if foundmesh == true then
-					obj = e:FindFirstChildWhichIsA("SpecialMesh")
-
-					if obj.MeshType ~= Enum.MeshType.FileMesh then
-
-						local args = {
-							[1] = "CreateMeshes",
-							[2] = {
-								[1] = {
-									["Part"] = part
-								}
-							}
-						}
-
-						fireRemote(game:GetService("Players").LocalPlayer.Backpack.Folder.SyncAPI.ServerEndpoint,args)
-
-						local args = {
-							[1] = "SyncMesh",
-							[2] = {
-								[1] = {
-									["MeshType"] = obj.MeshType,
-									["Part"] = part
-								}
-							}
-						}
-
-						fireRemote(game:GetService("Players").LocalPlayer.Backpack.Folder.SyncAPI.ServerEndpoint,args)
-
-					else
-
-					end
-
-
-					part.Name = "FinishedPart"
-
-
-				end
 			end
 		end
 
@@ -325,7 +276,7 @@ Description.Position = UDim2.new(0, 130, 0, 80)
 Description.Size = UDim2.new(0, 260, 0, 88)
 Description.Font = Enum.Font.SourceSans
 Description.Text = [[
-- You must not be respawned while loading
+- If your model does not load, try re-exec
 - The load time will be long, depending
   on your model size
 - You must have F3X in your inv or hand
