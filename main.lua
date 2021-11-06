@@ -1,3 +1,5 @@
+--419657010 CHRIST THE REDEEMER
+
 
 
 local TweenService = game:GetService("TweenService")
@@ -188,16 +190,62 @@ local function loadModel(id)
 				fireRemote(game:GetService("Players").LocalPlayer.Backpack.Folder.SyncAPI.ServerEndpoint,args)
 
 
-				part.Name = "FinishedPart"
+				--//MESH FUNCTION
 
-				
+				local foundmesh = false
+				for _, ee in ipairs(e:GetChildren()) do
+					if ee:IsA("SpecialMesh") then
 
+						foundmesh = true
+					end
+				end
+
+
+				local obj = nil
+				if foundmesh == true then
+					obj = e:FindFirstChildWhichIsA("SpecialMesh")
+
+					if obj.MeshType ~= Enum.MeshType.FileMesh then
+
+						local args = {
+							[1] = "CreateMeshes",
+							[2] = {
+								[1] = {
+									["Part"] = part
+								}
+							}
+						}
+
+						game:GetService("Players").LocalPlayer.Backpack.Folder.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+
+						local args = {
+							[1] = "SyncMesh",
+							[2] = {
+								[1] = {
+									["MeshType"] = obj.MeshType,
+									["Part"] = part
+								}
+							}
+						}
+
+						game:GetService("Players").LocalPlayer.Backpack.Folder.SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+
+					else
+
+					end
+
+
+					part.Name = "FinishedPart"
+
+
+
+				end
 			end
-		end
 
-		model:Destroy()
-		print("Finished loading!")
-		TextLabel.Text = "Load Model"
+			model:Destroy()
+			print("Finished loading!")
+			TextLabel.Text = "Load Model"
+		end
 	else
 		print("ERROR")
 		TextLabel.Text = "You must have F3X!"
@@ -209,7 +257,7 @@ end
 --Properties:
 
 Shop.Name = "Shop"
-Shop.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Shop.Parent = game.CoreGui
 Shop.ResetOnSpawn = false
 
 MainFrame.Name = "MainFrame"
@@ -281,7 +329,7 @@ Description.Text = [[
   on your model size
 - You must have F3X in your inv or hand
 - Made by Snippy#1118
-- More comming VERY soon!
+- Some models will NOT work!
 ]]
 Description.TextColor3 = Color3.fromRGB(43, 43, 43)
 Description.TextSize = 14.000
